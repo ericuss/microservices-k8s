@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  etl:
+    image: ${DOCKER_REGISTRY-}etl:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/ETL/Dockerfile
+  web:
+    image: ${DOCKER_REGISTRY-}websample:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Web/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5280:80"
+      - "52443:443"
+  webstatus:
+    image: ${DOCKER_REGISTRY-}webstatus:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/WebStatus/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - HealthChecks-UI__HealthChecks__0__Name=Web Status HTTP Checks
+      - HealthChecks-UI__HealthChecks__0__Uri=http://host.docker.internal:5080/hc
+      - HealthChecks-UI__HealthChecks__1__Name=Lanre Products Api HTTP Checks
+      - HealthChecks-UI__HealthChecks__1__Uri=http://host.docker.internal:5380/hc
+    ports:
+      - "5080:80"
+      - "50443:443"
+  api-products:
+    image: ${DOCKER_REGISTRY-}api-products:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Apis/products/Lanre.Products.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5380:80"
+      - "53443:443"
