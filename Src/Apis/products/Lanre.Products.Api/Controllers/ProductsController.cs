@@ -19,13 +19,6 @@
             new ProductDto(){ Name = "Cocke" },
         };
 
-        private readonly ILogger<ProductsController> _logger;
-
-        public ProductsController(ILogger<ProductsController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
         public IActionResult Get()
         {

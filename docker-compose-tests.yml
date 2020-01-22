@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  api-products-unit-tests:
+    image: ${DOCKER_REGISTRY-}api-products-unit-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Apis/products/Lanre.Products.Api.UnitTests/Dockerfile
+      target: unittest
+    entrypoint:
+        - dotnet
+        - test
+        - --logger
+        - trx;LogFileName=/tests/api-products-unit-test-results.xml
+    volumes: 
+    - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
