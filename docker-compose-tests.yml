@@ -14,3 +14,16 @@ services:
         - trx;LogFileName=/tests/api-products-unit-test-results.xml
     volumes: 
     - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
+  api-stock-unit-tests:
+    image: ${DOCKER_REGISTRY-}api-stock-unit-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Apis/stock/Lanre.Stock.Api.UnitTests/Dockerfile
+      target: unittest
+    entrypoint:
+        - dotnet
+        - test
+        - --logger
+        - trx;LogFileName=/tests/api-stock-unit-test-results.xml
+    volumes: 
+    - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests

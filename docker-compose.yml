@@ -27,6 +27,8 @@ services:
       - HealthChecks-UI__HealthChecks__0__Uri=http://host.docker.internal:5080/hc
       - HealthChecks-UI__HealthChecks__1__Name=Lanre Products Api HTTP Checks
       - HealthChecks-UI__HealthChecks__1__Uri=http://host.docker.internal:5380/hc
+      - HealthChecks-UI__HealthChecks__2__Name=Lanre Stock Api HTTP Checks
+      - HealthChecks-UI__HealthChecks__2__Uri=http://host.docker.internal:5480/hc
     ports:
       - "5080:80"
       - "50443:443"
@@ -40,3 +42,13 @@ services:
     ports:
       - "5380:80"
       - "53443:443"
+  api-stock:
+    image: ${DOCKER_REGISTRY-}api-stock:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Apis/stock/Lanre.Stock.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5480:80"
+      - "54443:443"
