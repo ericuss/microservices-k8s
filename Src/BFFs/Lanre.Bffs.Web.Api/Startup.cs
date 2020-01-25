@@ -1,10 +1,12 @@
 namespace Lanre.BFFs.Web.Api
 {
+    using Lanre.Bffs.Web.Api.Infrastructure.Settings;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using System.Collections.Generic;
 
     public class Startup
     {
@@ -26,10 +28,12 @@ namespace Lanre.BFFs.Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .Configure<List<ApiSettings>>(this.Configuration.GetSection("Apis"))
                 .AddControllers()
                 .Services
                 .AddCustomHealthChecks()
                 .AddCustomSwagger()
+                .RegisterServices()
                 ;
         }
 
@@ -50,7 +54,6 @@ namespace Lanre.BFFs.Web.Api
                 {
                     endpoints.UseHealthChecks();
                     endpoints.MapControllers();
-
                 });
         }
     }

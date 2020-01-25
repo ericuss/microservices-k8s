@@ -32,6 +32,18 @@ services:
     ports:
       - "5080:80"
       - "50443:443"
+  bff:
+    image: ${DOCKER_REGISTRY-}bff:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/BFFs/Lanre.Bffs.Web.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Apis__0__Uri=http://host.docker.internal:5380
+      - Apis__1__Uri=http://host.docker.internal:5480
+    ports:
+      - "4080:80"
+      - "40443:443"
   api-products:
     image: ${DOCKER_REGISTRY-}api-products:${TAG:-latest}
     build:
