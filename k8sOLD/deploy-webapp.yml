@@ -1,0 +1,54 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: websample
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: websample
+    spec:
+      containers:
+        - name: websample
+          image: ericuss/websample:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: websample
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: websample
+  type: LoadBalancer
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: websample
+# spec:
+#   type: ExternalName
+#   externalName: websample.svc.cluster.local
+#   ports:
+#   - port: 80
+
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#     name: websample
+# spec:
+#   ports:
+#     - name: http-port
+#       port: 80
+#       targetPort: 80
+#   selector:
+#     app: websample
+#   type: LoadBalancer
+#   apiVersion: v1

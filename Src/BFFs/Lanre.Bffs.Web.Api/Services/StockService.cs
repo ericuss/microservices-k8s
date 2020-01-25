@@ -3,14 +3,15 @@ namespace Lanre.Bffs.Web.Api.Services
     using Lanre.Bffs.Web.Api.Infrastructure.Settings;
     using Lanre.Bffs.Web.Api.Services.Core;
     using Lanre.BFFs.Web.Api.Models;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class StockService : ServiceCore, IStockService
     {
-        public StockService(IOptions<List<ApiSettings>> apisSettings)
-            : base(apisSettings)
+        public StockService(IOptions<List<ApiSettings>> apisSettings, ILogger<StockService> logger)
+            : base(apisSettings, logger)
         {
         }
 

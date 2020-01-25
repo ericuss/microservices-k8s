@@ -23,12 +23,10 @@ services:
       dockerfile: Src/WebStatus/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - HealthChecks-UI__HealthChecks__0__Name=Web Status HTTP Checks
       - HealthChecks-UI__HealthChecks__0__Uri=http://host.docker.internal:5080/hc
-      - HealthChecks-UI__HealthChecks__1__Name=Lanre Products Api HTTP Checks
-      - HealthChecks-UI__HealthChecks__1__Uri=http://host.docker.internal:5380/hc
-      - HealthChecks-UI__HealthChecks__2__Name=Lanre Stock Api HTTP Checks
-      - HealthChecks-UI__HealthChecks__2__Uri=http://host.docker.internal:5480/hc
+      - HealthChecks-UI__HealthChecks__1__Uri=http://host.docker.internal:4080/hc
+      - HealthChecks-UI__HealthChecks__2__Uri=http://host.docker.internal:5380/hc
+      - HealthChecks-UI__HealthChecks__3__Uri=http://host.docker.internal:5480/hc
     ports:
       - "5080:80"
       - "50443:443"

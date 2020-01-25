@@ -31,7 +31,7 @@ namespace Lanre.BFFs.Web.Api
                 .Configure<List<ApiSettings>>(this.Configuration.GetSection("Apis"))
                 .AddControllers()
                 .Services
-                .AddCustomHealthChecks()
+                .AddCustomHealthChecks(this.Configuration)
                 .AddCustomSwagger()
                 .RegisterServices()
                 ;

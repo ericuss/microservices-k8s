@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: lanre-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /websample
+        backend:
+          serviceName: websample
+          servicePort: 80
+      - path: /webstatus
+        backend:
+          serviceName: websstatus
+          servicePort: 80
