@@ -15,13 +15,13 @@
        AsA = "As a user",
        IWant = "I want to get products",
        SoThat = "So that I can get products")]
-    public class CallToGetProductsTests : IClassFixture<WebHostFixture>, IDisposable
+    public class CallToGetProductsBDDTests : IClassFixture<WebHostFixture>, IDisposable
     {
         private readonly WebHostFixture _fixture;
         private readonly HttpClient _client;
         private HttpResponseMessage _response;
 
-        public CallToGetProductsTests(WebHostFixture fixture, ITestOutputHelper output)
+        public CallToGetProductsBDDTests(WebHostFixture fixture, ITestOutputHelper output)
         {
             _fixture = fixture;
             fixture.Output = output;

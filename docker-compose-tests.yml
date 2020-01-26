@@ -14,6 +14,19 @@ services:
         - trx;LogFileName=/tests/api-products-unit-test-results.xml
     volumes: 
     - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
+  api-products-integration-tests:
+    image: ${DOCKER_REGISTRY-}api-products-integration-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Apis/products/Lanre.Products.Api.IntegrationTests/Dockerfile
+      target: integrationtests
+    entrypoint:
+        - dotnet
+        - test
+        - --logger
+        - trx;LogFileName=/tests/api-products-integration-test-results.xml
+    volumes: 
+    - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
   api-stock-unit-tests:
     image: ${DOCKER_REGISTRY-}api-stock-unit-test:${TAG:-latest}
     build:
@@ -25,5 +38,18 @@ services:
         - test
         - --logger
         - trx;LogFileName=/tests/api-stock-unit-test-results.xml
+    volumes: 
+    - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
+  api-stock-integration-tests:
+    image: ${DOCKER_REGISTRY-}api-stock-integration-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Apis/stock/Lanre.Stock.Api.IntegrationTests/Dockerfile
+      target: integrationtests
+    entrypoint:
+        - dotnet
+        - test
+        - --logger
+        - trx;LogFileName=/tests/api-stock-integration-test-results.xml
     volumes: 
     - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests

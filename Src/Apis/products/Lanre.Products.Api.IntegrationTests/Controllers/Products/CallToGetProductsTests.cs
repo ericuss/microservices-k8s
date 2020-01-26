@@ -12,10 +12,10 @@
 
     public class CallToGetProductsTests : IClassFixture<WebHostFixture>, IDisposable
     {
-        readonly WebHostFixture _fixture;
-        readonly HttpClient _client;
+        private readonly WebHostFixture _fixture;
+        private readonly HttpClient _client;
 
-        public HttpTests(WebHostFixture fixture, ITestOutputHelper output)
+        public CallToGetProductsTests(WebHostFixture fixture, ITestOutputHelper output)
         {
             _fixture = fixture;
             fixture.Output = output;
