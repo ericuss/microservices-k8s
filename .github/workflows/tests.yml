@@ -1,0 +1,13 @@
+name: Docker compose tests CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the docker-compose tests
+      run: sh _run-tests.sh
