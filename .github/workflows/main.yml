@@ -10,8 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the docker-compose stack
+      run: sh _run-tests.sh
+    - name: Build the docker-compose tests
       run: docker-compose build
-    - name: Check running containers
-      run: docker ps -a
-    - name: Check logs
-      run: docker logs backend
