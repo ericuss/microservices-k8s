@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios';
+import catalogService from '@/services/CatalogService';
 
 
 Vue.use(Vuex)
@@ -44,22 +44,12 @@ export default new Vuex.Store({
       return Promise.resolve()
     },
     async getProducts (context) {
-      // context.commit('pushProduct',
-      //   { id: 1, name: 'blablabla', stock: 11, src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg' }
-      // )
-      // return Promise.resolve()
-      return axios
-        .get('/user?ID=12345')
+      // return axios
+      //   .get('/user?ID=12345')
+      return catalogService.get()
         .then(data => {
           context.commit('setProducts', data)
         })
-        // .catch(thrown => {
-        //   if (axios.isCancel(thrown)) {
-        //     // console.log('Request canceled', thrown.message);
-        //   } else {
-        //     // handle error
-        //   }
-        // })
         ;
 
       // return Promise.resolve()

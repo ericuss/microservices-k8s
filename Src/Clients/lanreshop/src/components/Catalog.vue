@@ -1,10 +1,13 @@
 <template>
   <div class="catalog">
     <h3>{{name}}</h3>
-    <div>
-      <div v-for="product in products" v-bind:key="product.id">
-        <CatalogProduct v-bind:product="product"></CatalogProduct>
-      </div>
+    <div class="products">
+      <CatalogProduct
+        class="product"
+        v-for="product in products"
+        v-bind:key="product.id"
+        v-bind:product="product"
+      ></CatalogProduct>
     </div>
   </div>
 </template>
@@ -12,17 +15,17 @@
 <script>
 // @ is an alias to /src
 import { mapGetters, mapActions } from "vuex";
-import CatalogProduct from '@/components/CatalogProduct';
+import CatalogProduct from "@/components/CatalogProduct";
 
 export default {
   computed: {
-    ...mapGetters(["products", "productsCount"]),
+    ...mapGetters(["products", "productsCount"])
   },
-  components:{
+  components: {
     CatalogProduct
   },
   beforeMount() {
-    this.getProducts()
+    this.getProducts();
   },
   data() {
     return {
@@ -30,8 +33,19 @@ export default {
       name: "catalog"
     };
   },
-  methods:{
+  methods: {
     ...mapActions(["getProducts"])
   }
 };
 </script>
+
+<style scoped>
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
+.products * {
+  margin: 1vw !important;
+  width: 20vw;
+}
+</style>

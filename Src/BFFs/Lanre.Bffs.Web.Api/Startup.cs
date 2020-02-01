@@ -33,6 +33,7 @@ namespace Lanre.BFFs.Web.Api
                 .Services
                 .AddCustomHealthChecks(this.Configuration)
                 .AddCustomSwagger()
+                .AddCustomCors()
                 .RegisterServices()
                 ;
         }
@@ -46,6 +47,7 @@ namespace Lanre.BFFs.Web.Api
             }
 
             app
+                .UseCustomCors()
                 .UseHttpsRedirection()
                 .UseRouting()
                 .UseCustomSwagger()
