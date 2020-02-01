@@ -8,6 +8,8 @@ namespace Lanre.BFFs.Web.Api.Models
 
         public string Name { get; set; }
 
+        public int Src { get; set; }
+
         public int Stock { get; set; }
     }
 }
