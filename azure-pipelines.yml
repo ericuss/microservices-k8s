@@ -30,14 +30,11 @@ stages:
         includeSourceTags: true
         dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
     
-    # - task: DockerCompose@0
-    #   displayName: Docker compose publish
-    #   inputs:
-    #     containerregistrytype: 'Azure Container Registry'
-    #     azureSubscription: $(azureSubscriptionEndpoint)
-    #     azureContainerRegistry: '{"loginServer":"$(azureContainerRegistryLogin)", "id" : "$(azureContainerRegistryId)"}'
-    #     dockerComposeFile: '**/docker-compose.yml'
-    #     action: 'Push services'
-    #     additionalImageTags: '$(Build.BuildId)'
-    #     dockerComposeFileArgs: 'DOCKER_REGISTRY=$(azureContainerRegistryLogin)/'
+    - task: DockerCompose@0
+      displayName: Docker compose publish
+      inputs:
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Push services'
+        additionalImageTags: '$(Build.BuildId)'
+        dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
 
