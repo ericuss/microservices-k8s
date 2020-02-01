@@ -33,6 +33,7 @@
                 {
                     Id = p.Id,
                     Name = p.Name,
+                    Src = p.Src,
                     Stock = stock?.FirstOrDefault(s => s.Id == p.Id)?.Stock ?? 0,
                 };
                 catalog.Add(catalogItem);

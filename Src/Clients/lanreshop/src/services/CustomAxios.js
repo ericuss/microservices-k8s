@@ -4,12 +4,13 @@ export function AddToken() {
     axios.interceptors.request
         .use(
             (config) => config,
-            (err) => {
+            _ => {
                 if (process.env.NODE_ENV === 'development') {
                     // eslint-disable-line no-use-before-define
-                    console.log('Axios error')
+                    // console.log('Axios error')
                     // eslint-disable-line no-use-before-define
-                    console.log(err)
+                    // console.log(err)
+                    _.toString();
                 }
                 // What do we do when we get errors?
             })

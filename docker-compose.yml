@@ -16,6 +16,16 @@ services:
     ports:
       - "5280:80"
       - "52443:443"
+      
+  shop-vue:
+    image: ${DOCKER_REGISTRY-}shop-vue:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Src/Clients/lanreshop/Dockerfile
+    environment:
+      - VUE_APP_BFF_URL=http://host.docker.internal:4080
+    ports:
+      - "3080:8080"
   webstatus:
     image: ${DOCKER_REGISTRY-}webstatus:${TAG:-latest}
     build:
