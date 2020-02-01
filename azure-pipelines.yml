@@ -29,7 +29,11 @@ stages:
         action: 'Build services'
         includeSourceTags: true
         dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
-    
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'docker ericuss'
+        command: 'login'
+        
     - task: DockerCompose@0
       displayName: Docker compose publish
       inputs:
