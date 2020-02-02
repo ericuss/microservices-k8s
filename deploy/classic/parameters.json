@@ -15,7 +15,7 @@
             "value": ""
         },
         "hostingPlanName": {
-            "value": "ASP-Lanre-9102"
+            "value": "ASP-Lanre"
         },
         "serverFarmResourceGroup": {
             "value": "Lanre"
