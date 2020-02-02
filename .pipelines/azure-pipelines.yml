@@ -13,7 +13,7 @@ variables:
   tag: '$(Build.BuildId)'
   docker_registry: 'ericuss'
   container_registry_connection: 'docker ericuss'
-  api_products_image: '$(docker_registry)/api-products:$(tag)'
+  api_products_image: 'DOCKER|$(docker_registry)/api-products:$(tag)'
 
 stages:
 # - stage: Build
