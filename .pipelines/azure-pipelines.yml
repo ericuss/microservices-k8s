@@ -12,6 +12,7 @@ pool:
 variables:
   tag: '$(Build.BuildId)'
   docker_registry: 'ericuss'
+  container_registry_connection: 'docker ericuss'
 
 stages:
 - stage: Build
@@ -31,7 +32,7 @@ stages:
         dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
     - task: Docker@2
       inputs:
-        containerRegistry: 'docker ericuss'
+        containerRegistry: '$(container_registry_connection)'
         command: 'login'
         
     - task: DockerCompose@0
@@ -41,4 +42,25 @@ stages:
         action: 'Push services'
         additionalImageTags: '$(Build.BuildId)'
         dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
+- stage: Deploy
+  displayName: Deploy arm
+  jobs:  
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Lanre MSDN'
+        subscriptionId: '484614b5-be32-42e5-b226-fbba74cadb9a'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'Lanre'
+        location: 'West Europe'
+        templateLocation: 'Linked artifact'
+        csmFile: 'deploy/classic/template.json'
+        csmParametersFile: 'deploy/classic/parameters.json'
+        deploymentMode: 'Incremental'
+        deploymentName: 'product api deploy'
 
