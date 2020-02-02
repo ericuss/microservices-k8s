@@ -63,5 +63,5 @@ stages:
         csmParametersFile: 'deploy/classic/parameters.json'
         overrideParameters: '-dockerRegistryUsername $(docker_registry_username) -dockerRegistryPassword $(docker_registry_password)'
         deploymentMode: 'Incremental'
-        deploymentName: 'product api deploy'
+        deploymentName: 'product-api-deploy'
 
