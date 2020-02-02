@@ -44,12 +44,6 @@
         "dockerRegistryUrl": {
             "value": "https://index.docker.io"
         },
-        "dockerRegistryUsername": {
-            "value": ""
-        },
-        "dockerRegistryPassword": {
-            "value": null
-        },
         "dockerRegistryStartupCommand": {
             "value": ""
         }
