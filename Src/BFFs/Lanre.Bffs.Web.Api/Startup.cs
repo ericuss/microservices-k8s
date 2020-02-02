@@ -38,7 +38,7 @@ namespace Lanre.BFFs.Web.Api
             services
                 .Configure<List<ApiSettings>>(this.Configuration.GetSection("Apis"))
                 .AddLogging(builder => {
-                    builder.AddApplicationInsights("instrumentationKey");
+                    builder.AddApplicationInsights(instrumentationKey);
                     builder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
                 })
                 .AddApplicationInsightsTelemetry()
