@@ -61,6 +61,7 @@ stages:
         templateLocation: 'Linked artifact'
         csmFile: 'deploy/classic/template.json'
         csmParametersFile: 'deploy/classic/parameters.json'
+        overrideParameters: '-dockerRegistryUsername $(docker_registry_username) -dockerRegistryPassword $(docker_registry_password)'
         deploymentMode: 'Incremental'
         deploymentName: 'product api deploy'
 
