@@ -16,33 +16,33 @@ variables:
   api_products_image: 'DOCKER|$(docker_registry)/api-products:$(tag)'
 
 stages:
-# - stage: Build
-#   displayName: Build image
-#   jobs:  
-#   - job: Build
-#     displayName: Build
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     steps:
-#     - task: DockerCompose@0
-#       displayName: Docker compose build
-#       inputs:
-#         dockerComposeFile: '**/docker-compose.yml'
-#         action: 'Build services'
-#         includeSourceTags: true
-#         dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
-#     - task: Docker@2
-#       inputs:
-#         containerRegistry: '$(container_registry_connection)'
-#         command: 'login'
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DockerCompose@0
+      displayName: Docker compose build
+      inputs:
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Build services'
+        includeSourceTags: true
+        dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
+    - task: Docker@2
+      inputs:
+        containerRegistry: '$(container_registry_connection)'
+        command: 'login'
         
-#     - task: DockerCompose@0
-#       displayName: Docker compose publish
-#       inputs:
-#         dockerComposeFile: '**/docker-compose.yml'
-#         action: 'Push services'
-#         additionalImageTags: '$(Build.BuildId)'
-#         dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
+    - task: DockerCompose@0
+      displayName: Docker compose publish
+      inputs:
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Push services'
+        additionalImageTags: '$(Build.BuildId)'
+        dockerComposeFileArgs: 'DOCKER_REGISTRY=$(docker_registry)/'
 - stage: Deploy
   displayName: Deploy arm
   jobs:  
