@@ -47,11 +47,12 @@ stages:
   displayName: Deploy arm
   jobs:  
   - job: Deploy
-    displayName: Deploy
+    displayName: Deployments
     pool:
       vmImage: 'ubuntu-latest'
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
+      displayName: Deploy api products
       inputs:
         deploymentScope: 'Resource Group'
         azureResourceManagerConnection: 'Lanre MSDN'
@@ -60,9 +61,23 @@ stages:
         resourceGroupName: 'Lanre'
         location: 'West Europe'
         templateLocation: 'Linked artifact'
-        csmFile: 'deploy/classic/template.json'
-        csmParametersFile: 'deploy/classic/parameters.json'
+        csmFile: 'deploy/classic/api-products-template.json'
+        csmParametersFile: 'deploy/classic/api-products-parameters.json'
         overrideParameters: '-linuxFxVersion $(api_products_image)'
         deploymentMode: 'Incremental'
         deploymentName: 'product-api-deploy'
+    - task: AzureResourceManagerTemplateDeployment@3
+      displayName: Deploy insights
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Lanre MSDN'
+        subscriptionId: '484614b5-be32-42e5-b226-fbba74cadb9a'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'Lanre'
+        location: 'West Europe'
+        templateLocation: 'Linked artifact'
+        csmFile: 'deploy/classic/insights-template.json'
+        csmParametersFile: 'deploy/classic/insights-parameters.json'
+        deploymentMode: 'Incremental'
+        deploymentName: 'insights-deploy'
 
