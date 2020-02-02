@@ -56,7 +56,7 @@ services:
     image: ${DOCKER_REGISTRY-}api-products:${TAG:-latest}
     build:
       context: .
-      dockerfile: Src/Apis/products/Lanre.Products.Api/Dockerfile
+      dockerfile: Src/Apis/products/Lanre.Products.Host/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
