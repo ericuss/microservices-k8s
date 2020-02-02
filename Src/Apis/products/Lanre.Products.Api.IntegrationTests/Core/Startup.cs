@@ -9,6 +9,7 @@ namespace Lanre.Products.Api.IntegrationTests
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddApplicationInsightsTelemetry()
                 .AddControllers()
                     .AddApplicationPart(typeof(Api.Controllers.ProductsController).Assembly)
                 ;

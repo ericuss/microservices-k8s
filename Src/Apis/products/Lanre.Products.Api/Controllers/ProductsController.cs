@@ -36,7 +36,7 @@
             var response = this.Ok(_products.ToList());
 
             stopWatch.Stop();
-            this._logger.LogError($"products get request elapsed: {stopWatch.Elapsed}");
+            this._logger.LogInformation($"products get request elapsed: {stopWatch.Elapsed}");
             this._telemetry.TrackRequest("products get", DateTimeOffset.UtcNow, stopWatch.Elapsed, "200", true);
             this._telemetry.Flush();
             return response;

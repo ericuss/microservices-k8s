@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Lanre.Products.Api": {
+    "Lanre.Products.Host": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",

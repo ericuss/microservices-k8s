@@ -1,4 +1,4 @@
-namespace Lanre.Products.Api
+namespace Lanre.Products.Host
 {
     using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.AspNetCore.Hosting;

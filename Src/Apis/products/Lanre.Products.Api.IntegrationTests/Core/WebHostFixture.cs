@@ -1,8 +1,7 @@
 ﻿namespace Lanre.Products.Api.IntegrationTests
 {
-    using Microsoft.AspNetCore.Builder;
+    using Lanre.Products.Host;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Testing;
     using Microsoft.AspNetCore.TestHost;
     using Microsoft.Extensions.DependencyInjection.Extensions;

@@ -1,4 +1,4 @@
-namespace Lanre.Products.Api
+namespace Lanre.Products.Host
 {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;

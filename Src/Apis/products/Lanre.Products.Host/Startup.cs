@@ -1,6 +1,5 @@
-namespace Lanre.Products.Api
+namespace Lanre.Products.Host
 {
-    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -30,8 +29,7 @@ namespace Lanre.Products.Api
                     builder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
                 })
                 .AddApplicationInsightsTelemetry(x => x.InstrumentationKey = instrumentationKey)
-                .AddControllers()
-                .Services
+                .ConfigureApiServices()
                 .AddCustomHealthChecks()
                 .AddCustomSwagger()
                 ;
@@ -46,16 +44,9 @@ namespace Lanre.Products.Api
             }
 
             app
-                .UseHttpsRedirection()
-                .UseRouting()
-                .UseCustomSwagger()
-                .UseAuthorization()
-                .UseEndpoints(endpoints =>
-                {
-                    endpoints.UseHealthChecks();
-                    endpoints.MapControllers();
-
-                });
+                .UseApi(a => a.UseCustomSwagger(), endpoints => endpoints.UseHealthChecks())
+                .UseWelcomePage()
+                ;
         }
     }
 }

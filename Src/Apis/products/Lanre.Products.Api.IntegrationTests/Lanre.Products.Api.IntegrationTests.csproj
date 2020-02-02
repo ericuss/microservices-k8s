@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lanre.Products.Api\Lanre.Products.Api.csproj" />
+    <ProjectReference Include="..\Lanre.Products.Host\Lanre.Products.Host.csproj" />
   </ItemGroup>
 
 </Project>
