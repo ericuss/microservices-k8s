@@ -13,14 +13,7 @@ namespace Lanre.Products.Api
     {
         public Startup(IHostEnvironment env)
         {
-            var configBuilder = new ConfigurationBuilder()
-               .SetBasePath(env.ContentRootPath)
-               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-               .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-               .AddEnvironmentVariables()
-                ;
-
-            Configuration = configBuilder.Build();
+            Configuration = ConfigureBuilder.GetConfiguration(env);
         }
 
         public IConfiguration Configuration { get; }

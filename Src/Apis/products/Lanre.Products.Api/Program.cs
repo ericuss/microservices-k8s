@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
 namespace Lanre.Products.Api
 {
+    using Microsoft.ApplicationInsights.Extensibility;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Hosting;
+    using Serilog;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -20,7 +17,21 @@ namespace Lanre.Products.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseKestrel()
+                        .UseSerilog((builderContext, config) => CreateSerilogLogger(builderContext, config))
+                        .UseStartup<Startup>();
                 });
+
+        private static void CreateSerilogLogger(WebHostBuilderContext builderContext, LoggerConfiguration config)
+        {
+            var configuration = ConfigureBuilder.GetConfiguration(builderContext.HostingEnvironment);
+            var instrumentationKey = configuration.GetValue<string>("ApplicationInsights:InstrumentationKey");
+            config
+                .ReadFrom.Configuration(configuration)
+                .WriteTo.ApplicationInsights(instrumentationKey, TelemetryConverter.Events, Serilog.Events.LogEventLevel.Information)
+                .WriteTo.ApplicationInsights(instrumentationKey, TelemetryConverter.Traces, Serilog.Events.LogEventLevel.Information)
+                ;
+        }
     }
 }
