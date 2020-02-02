@@ -6,6 +6,8 @@ namespace Lanre.BFFs.Web.Api
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.ApplicationInsights;
     using System.Collections.Generic;
 
     public class Startup
@@ -18,6 +20,11 @@ namespace Lanre.BFFs.Web.Api
                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                .AddEnvironmentVariables()
                 ;
+            
+            if (env.IsDevelopment())
+            {
+                configBuilder.AddUserSecrets<Startup>(optional: true);
+            }
 
             Configuration = configBuilder.Build();
         }
@@ -27,8 +34,14 @@ namespace Lanre.BFFs.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var instrumentationKey = this.Configuration.GetValue<string>("ApplicationInsights:InstrumentationKey");
             services
                 .Configure<List<ApiSettings>>(this.Configuration.GetSection("Apis"))
+                .AddLogging(builder => {
+                    builder.AddApplicationInsights("instrumentationKey");
+                    builder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
+                })
+                .AddApplicationInsightsTelemetry()
                 .AddControllers()
                 .Services
                 .AddCustomHealthChecks(this.Configuration)
