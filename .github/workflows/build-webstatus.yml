@@ -1,4 +1,4 @@
-name: Docker compose build CI
+name: Docker compose build webstatus
 
 on: [push]
 
