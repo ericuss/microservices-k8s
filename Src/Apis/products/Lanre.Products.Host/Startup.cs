@@ -29,7 +29,7 @@ namespace Lanre.Products.Host
                     builder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
                 })
                 .AddApplicationInsightsTelemetry(x => x.InstrumentationKey = instrumentationKey)
-                .ConfigureApiServices()
+                .ConfigureApiServices(this.Configuration)
                 .AddCustomHealthChecks()
                 .AddCustomSwagger()
                 ;
@@ -40,7 +40,7 @@ namespace Lanre.Products.Host
         {
             app
                 .AddIf(env.IsDevelopment(), x => x.UseDeveloperExceptionPage())
-                .UseApi(a => a.UseCustomSwagger(), endpoints => endpoints.UseHealthChecks())
+                .UseApi(env, a => a.UseCustomSwagger(), endpoints => endpoints.UseHealthChecks())
                 .UseWelcomePage()
                 ;
         }
