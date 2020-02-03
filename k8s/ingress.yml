@@ -1,19 +1,46 @@
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: lanre-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+# spec:
+#   rules:
+#   - host: localhost
+#     http:
+#       paths:
+#       - path: /websample
+#         backend:
+#           serviceName: websample
+#           servicePort: 80
+#       - path: /webstatus
+#         backend:
+#           serviceName: websstatus
+#           servicePort: 80
+
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: lanre-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    traefik.ingress.kubernetes.io/affinity: "true"
 spec:
   rules:
-  - host: localhost
+  - host: f68159c6453f4cb7b817.westeurope.aksapp.io
     http:
       paths:
-      - path: /websample
+      - path: "/"
         backend:
-          serviceName: websample
+          serviceName: webstatus-service
           servicePort: 80
-      - path: /webstatus
+      - path: "/sample"
         backend:
-          serviceName: websstatus
+          serviceName: websample-service
           servicePort: 80
+  # - host: www.letschat.com
+  #   http:
+  #     paths:
+  #     - path: "/"
+  #       backend:
+  #         serviceName: letschat
+  #         servicePort: 8080          
