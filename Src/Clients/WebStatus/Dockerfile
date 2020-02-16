@@ -2,11 +2,11 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY Src/WebStatus/*.csproj ./
+COPY Src/Clients/WebStatus/*.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY Src/WebStatus ./
+COPY Src/Clients/WebStatus ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

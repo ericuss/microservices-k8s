@@ -10,7 +10,7 @@ services:
     image: ${DOCKER_REGISTRY-}websample:${TAG:-latest}
     build:
       context: .
-      dockerfile: Src/Web/Dockerfile
+      dockerfile: Src/Clients/Web/Dockerfile
   shop-vue:
     image: ${DOCKER_REGISTRY-}shop-vue:${TAG:-latest}
     build:
@@ -20,7 +20,7 @@ services:
     image: ${DOCKER_REGISTRY-}webstatus:${TAG:-latest}
     build:
       context: .
-      dockerfile: Src/WebStatus/Dockerfile
+      dockerfile: Src/Clients/WebStatus/Dockerfile
   bff:
     image: ${DOCKER_REGISTRY-}bff:${TAG:-latest}
     build:
