@@ -10,9 +10,12 @@ namespace Lanre.Products.Host
 
     public class Startup
     {
+        private readonly IHostEnvironment _env;
+
         public Startup(IHostEnvironment env)
         {
             Configuration = ConfigureBuilder.GetConfiguration(env);
+            this._env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -29,7 +32,7 @@ namespace Lanre.Products.Host
                     builder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
                 })
                 .AddApplicationInsightsTelemetry(x => x.InstrumentationKey = instrumentationKey)
-                .ConfigureApiServices(this.Configuration)
+                .ConfigureApiServices(this.Configuration, this._env)
                 .AddCustomHealthChecks()
                 .AddCustomSwagger()
                 ;

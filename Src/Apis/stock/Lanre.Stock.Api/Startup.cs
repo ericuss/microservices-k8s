@@ -1,5 +1,6 @@
 namespace Lanre.Stock.Api
 {
+    using Lanre.Stock.Api.Infrastructure.Settings;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -25,11 +26,14 @@ namespace Lanre.Stock.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var identitySettings = this.Configuration.GetSection("Identity").Get<IdentitySettings>();
+
             services
                 .AddControllers()
                 .Services
                 .AddCustomHealthChecks()
-                .AddCustomSwagger()
+                .AddCustomSwagger(identitySettings.Url)
+                .AddCustomAuthentication(identitySettings)
                 ;
         }
 
@@ -45,6 +49,7 @@ namespace Lanre.Stock.Api
                 .UseHttpsRedirection()
                 .UseRouting()
                 .UseCustomSwagger()
+                .UseAuthentication()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {

@@ -8,14 +8,14 @@ namespace Microsoft.Extensions.DependencyInjection
 
     public static class HttpsExtensions
     {
-        public static IServiceCollection AddCustomHttps(this IServiceCollection services, int httpsPort)
+        public static IServiceCollection AddCustomHttps(this IServiceCollection services, int httpsPort, IHostEnvironment env)
         {
             services
-                .AddHttpsRedirection(options =>
+                .AddIf(!env.IsDevelopment(), x => x.AddHttpsRedirection(options =>
                 {
                     options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                     options.HttpsPort = httpsPort;
-                })
+                }))
                 ;
             return services;
         }
@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             return app
                     .AddIf(!env.IsDevelopment(), x => x.UseHsts())
-                    .UseHttpsRedirection()
+                    .AddIf(!env.IsDevelopment(), x => x.UseHttpsRedirection())
                 ;
         }
     }
